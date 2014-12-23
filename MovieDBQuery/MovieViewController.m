@@ -14,29 +14,79 @@
 @property (weak, nonatomic) IBOutlet UILabel *yearRatingRuntimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *directorLabel;
 @property (weak, nonatomic) IBOutlet UITextView *plotSummaryTextView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
 
 @end
 
 @implementation MovieViewController
 
+const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.movie) {
+        [self searchForMovieWithImdbId:self.movie.imdbID];
+        [self retrievePosterImage];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    if (self.movie) {
+        self.movieTitle.text = self.movie.title;
+        self.yearRatingRuntimeLabel.text = self.movie.year;
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)updateUI {
+    self.yearRatingRuntimeLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", self.movie.year, self.movie.rating, self.movie.runtime];
+    self.directorLabel.text = self.movie.director;
+    self.plotSummaryTextView.text = self.movie.plotSummary;
+    //TODO website
+    //TODO image
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)parseMovieJSONData:(NSDictionary *)json {
+    [self.movie setRating:[json objectForKey:@"Rated"]
+             runtime:[json objectForKey:@"Runtime"]
+            director:[json objectForKey:@"Director"]
+                plot:[json objectForKey:@"Plot"]
+           posterURL:[json objectForKey:@"Poster"]
+             website:[json objectForKey:@"Website"]];
 }
-*/
+
+- (NSString *)movieRequestString:(NSString *)imbdID {
+    return [NSString stringWithFormat:@"%@i=%@&r=json", omdbRequestString, imbdID];
+}
+
+- (NSMutableURLRequest *)generateRequest:(NSString *)urlString
+{
+    // generate url
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // generate request
+    return [NSMutableURLRequest requestWithURL:url
+                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
+                               timeoutInterval:60.0];
+}
+
+- (void)searchForMovieWithImdbId:(NSString *)imbdid {
+    // requests the specific movie from the db
+    [NSURLConnection sendAsynchronousRequest:[self generateRequest:[self movieRequestString:imbdid]]
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
+                                                                                            options:0
+                                                                                              error:nil];
+                               [self parseMovieJSONData:jsonResponse];
+                               
+                               [self updateUI];
+                           }];
+}
+
+- (void)retrievePosterImage {
+    self.posterImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.movie.posterURL]]];
+}
 
 @end

@@ -8,18 +8,20 @@
 
 #import "SearchViewController.h"
 #import "MovieCell.h"
+#import "Movie.h"
+#import "MovieViewController.h"
 
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
-@property (strong, nonatomic) NSArray *searchResults;
+@property (strong, nonatomic) NSMutableArray *searchResults;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation SearchViewController
 
-static const NSString *movieReuseIdentifier = @"MovieCell";
+const NSString *movieReuseIdentifier = @"MovieCell";
 const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 
 - (void)viewDidLoad {
@@ -32,29 +34,10 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma mark - querying OMDB
-- (void)searchForMovie:(NSString *)movie {
-    // encapsulates the process of requesting the json from the server
-    
-    // generate url
-    NSURL *url = [NSURL URLWithString:[self requestString:movie]];
-    
-    // generate request
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:60.0];
-    
-    [NSURLConnection sendAsynchronousRequest:request
+- (void)searchForMovies:(NSString *)urlString {
+    // requests the search results from the db
+    [NSURLConnection sendAsynchronousRequest:[self generateRequest:urlString]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                // TODO add in an activity spinner
@@ -63,33 +46,53 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
                                NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
                                                                                             options:0
                                                                                               error:nil];
-                               NSLog(@"JSON objects: %i", [jsonResponse count]);
-                               
-                               self.searchResults = [jsonResponse objectForKey:@"Search"];
-                               
-                               NSLog(@"Number search results: %i", [self.searchResults count]);
-                               
+                               [self parseSearchJSONData:jsonResponse];
                                [self.tableView reloadData];
-                               
     }];
 }
 
-- (NSString *)requestString:(NSString *)search {
+- (NSMutableURLRequest *)generateRequest:(NSString *)urlString
+{
+    // generate url
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // generate request
+    return [NSMutableURLRequest requestWithURL:url
+                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
+                               timeoutInterval:60.0];
+}
+
+- (NSString *)searchRequestString:(NSString *)search {
     return [NSString stringWithFormat:@"%@s=%@&r=json", omdbRequest, search];
 }
 
 #pragma mark - JSON Parsing
 
-#pragma mark - UITextFieldDelegate methods
+- (void)parseSearchJSONData:(NSDictionary *)json {
+    NSArray *rawData = [json objectForKey:@"Search"];
+    self.searchResults = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [rawData count]; i++) {
+        Movie *movie = [[Movie alloc] init];
+        [movie setTitle:[[rawData objectAtIndex:i] objectForKey:@"Title"]
+                   year:[[rawData objectAtIndex:i] objectForKey:@"Year"]
+                   type:[[rawData objectAtIndex:i] objectForKey:@"Type"]
+                 imdbID:[[rawData objectAtIndex:i] objectForKey:@"imdbID"]];
+        [self.searchResults addObject:movie];
+    }
+}
+
+
+#pragma mark - Text/Search Field methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"TExt field should return");
+    NSLog(@"Text field should return");
     //[self.searchField endEditing:YES];
-    [self searchForMovie:textField.text];
+    [self searchForMovies:[self searchRequestString:textField.text]];
     
     return YES;
 }
 
-#pragma mark - UITableviewDataSource methods
+#pragma mark - Table View methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.searchResults count];
@@ -99,11 +102,23 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
     MovieCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MovieCell"
                                                            forIndexPath:indexPath];
     
-    NSDictionary *movie = [self.searchResults objectAtIndex:indexPath.item];
-    
-    [cell updateUIWithTitle:[movie objectForKey:@"Title"] year:[movie objectForKey:@"Year"] filmType:[movie objectForKey:@"Type"] tScore:0];
+    Movie *movie = [self.searchResults objectAtIndex:indexPath.item];
+    cell.movie = movie;
     
     return cell;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    
+    if ([segue.identifier isEqualToString:@"MovieDetail"]) {
+        // Pass the selected object to the new view controller.
+        NSIndexPath *path = [self.tableView indexPathForCell:(UITableViewCell *)sender];
+        
+        MovieViewController *mVC = (MovieViewController *)segue.destinationViewController;
+        mVC.movie = [self.searchResults objectAtIndex:path.row];
+    }
+    
 }
 
 @end

@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Movie.h"
 
 @interface MovieCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *movieTitle;
 @property (weak, nonatomic) IBOutlet UILabel *filmType;
 @property (weak, nonatomic) IBOutlet UILabel *tomatoScore;
 
-- (void)updateUIWithTitle:(NSString *)title year:(NSNumber *)year filmType:(NSString *)type tScore:(NSString *)tomScore;
+@property (strong, nonatomic) Movie *movie;
 
 @end

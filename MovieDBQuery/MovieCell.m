@@ -10,20 +10,15 @@
 
 @implementation MovieCell
 
-- (void)awakeFromNib {
-    // Initialization code
+- (void)setMovie:(Movie *)movie {
+    _movie = movie;
+    [self updateUI];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (void)updateUIWithTitle:(NSString *)title year:(NSNumber *)year filmType:(NSString *)type tScore:(NSString *)tomScore {
-    [self.movieTitle setText:[NSString stringWithFormat:@"%@ (%@)", title, year]];
-    [self.filmType setText:type];
-    [self.tomatoScore setText:tomScore];
+- (void)updateUI {
+    [self.movieTitle setText:[NSString stringWithFormat:@"%@ (%@)", self.movie.title, self.movie.year]];
+    [self.filmType setText:self.movie.type];
+    //[self.tomatoScore setText:tomScore];
 }
 
 @end
