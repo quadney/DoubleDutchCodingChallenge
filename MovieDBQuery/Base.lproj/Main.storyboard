@@ -214,7 +214,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ABb-Rc-ZIk">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ABb-Rc-ZIk">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xH-Gn-Bq0">
@@ -269,8 +269,7 @@
                                             </variation>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Plot Summary" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ndX-ka-8qx">
-                                            <rect key="frame" x="140" y="110" width="320" height="127"/>
-                                            <color key="backgroundColor" red="0.26649790502793291" green="0.26649790502793291" blue="0.26649790502793291" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="140" y="138" width="320" height="99"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="320" id="BP8-WN-NLJ"/>
                                             </constraints>
@@ -278,10 +277,17 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Website" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYV-nr-8MM">
+                                            <rect key="frame" x="8" y="110" width="584" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="AoK-Ml-eMe" secondAttribute="trailing" constant="8" id="0HX-0J-2PG"/>
                                         <constraint firstItem="4ev-C2-cal" firstAttribute="top" secondItem="r0w-lP-dSe" secondAttribute="top" constant="8" id="0UI-jC-feV"/>
+                                        <constraint firstItem="MYV-nr-8MM" firstAttribute="leading" secondItem="r0w-lP-dSe" secondAttribute="leading" constant="8" id="2cK-cX-epX"/>
                                         <constraint firstItem="D66-zD-UVV" firstAttribute="top" secondItem="4ev-C2-cal" secondAttribute="bottom" constant="8" id="3Hz-dg-KbV"/>
                                         <constraint firstAttribute="trailing" secondItem="D66-zD-UVV" secondAttribute="trailing" constant="8" id="5Pf-lx-72v"/>
                                         <constraint firstAttribute="centerX" secondItem="D66-zD-UVV" secondAttribute="centerX" id="5rU-by-2Fs"/>
@@ -292,6 +298,7 @@
                                         <constraint firstAttribute="trailing" secondItem="AoK-Ml-eMe" secondAttribute="trailing" constant="8" id="DSr-lX-j5E"/>
                                         <constraint firstItem="4ev-C2-cal" firstAttribute="leading" secondItem="r0w-lP-dSe" secondAttribute="leading" constant="8" id="FaV-Jw-uwY"/>
                                         <constraint firstItem="D66-zD-UVV" firstAttribute="leading" secondItem="r0w-lP-dSe" secondAttribute="leading" constant="8" id="G61-cp-osK"/>
+                                        <constraint firstItem="ndX-ka-8qx" firstAttribute="top" secondItem="MYV-nr-8MM" secondAttribute="bottom" constant="7" id="H9P-AN-3QN"/>
                                         <constraint firstItem="4ev-C2-cal" firstAttribute="leading" secondItem="r0w-lP-dSe" secondAttribute="leading" constant="8" id="HDf-Mu-kqt"/>
                                         <constraint firstAttribute="trailing" secondItem="4ev-C2-cal" secondAttribute="trailing" constant="8" id="HIe-AT-ETA"/>
                                         <constraint firstItem="4ev-C2-cal" firstAttribute="leading" secondItem="r0w-lP-dSe" secondAttribute="leading" constant="8" id="HbD-v5-Ovu"/>
@@ -301,6 +308,7 @@
                                         <constraint firstAttribute="trailing" secondItem="4ev-C2-cal" secondAttribute="trailing" constant="8" id="M8t-HK-YDJ"/>
                                         <constraint firstAttribute="trailing" secondItem="D66-zD-UVV" secondAttribute="trailing" constant="8" id="OoB-Qd-XXb"/>
                                         <constraint firstAttribute="centerY" secondItem="D66-zD-UVV" secondAttribute="centerY" constant="48" id="Owy-bG-03g"/>
+                                        <constraint firstItem="MYV-nr-8MM" firstAttribute="top" secondItem="AoK-Ml-eMe" secondAttribute="bottom" constant="8" id="Rg0-PL-jFB"/>
                                         <constraint firstAttribute="centerX" secondItem="AoK-Ml-eMe" secondAttribute="centerX" id="SUA-cp-Tte"/>
                                         <constraint firstItem="4ev-C2-cal" firstAttribute="top" secondItem="r0w-lP-dSe" secondAttribute="top" constant="8" id="TIR-d0-z1x"/>
                                         <constraint firstItem="AoK-Ml-eMe" firstAttribute="leading" secondItem="r0w-lP-dSe" secondAttribute="leading" constant="8" id="UJX-Za-Ojk"/>
@@ -314,6 +322,7 @@
                                         <constraint firstAttribute="centerY" secondItem="4ev-C2-cal" secondAttribute="centerY" constant="90.5" id="eXl-8u-Myi"/>
                                         <constraint firstAttribute="centerX" secondItem="D66-zD-UVV" secondAttribute="centerX" id="g3d-c1-H3Z"/>
                                         <constraint firstItem="D66-zD-UVV" firstAttribute="top" secondItem="4ev-C2-cal" secondAttribute="bottom" constant="-4" id="kdE-Se-ouj"/>
+                                        <constraint firstAttribute="trailing" secondItem="MYV-nr-8MM" secondAttribute="trailing" constant="8" id="vAf-hD-AMb"/>
                                         <constraint firstItem="AoK-Ml-eMe" firstAttribute="leading" secondItem="r0w-lP-dSe" secondAttribute="leading" constant="8" id="vuy-eb-SwH"/>
                                         <constraint firstAttribute="bottom" secondItem="ndX-ka-8qx" secondAttribute="bottom" constant="8" id="weu-X6-Fvi"/>
                                         <constraint firstAttribute="centerX" secondItem="4ev-C2-cal" secondAttribute="centerX" id="xj0-Hd-mOw"/>
@@ -342,6 +351,7 @@
                                             <exclude reference="L3J-dA-JKy"/>
                                             <exclude reference="SUA-cp-Tte"/>
                                             <exclude reference="UJX-Za-Ojk"/>
+                                            <exclude reference="VwZ-kV-cf1"/>
                                         </mask>
                                     </variation>
                                 </view>
@@ -410,6 +420,7 @@
                         <outlet property="movieTitle" destination="4ev-C2-cal" id="2RM-hj-iOj"/>
                         <outlet property="plotSummaryTextView" destination="ndX-ka-8qx" id="fbP-TK-da9"/>
                         <outlet property="posterImageView" destination="ABb-Rc-ZIk" id="z5Z-yb-F91"/>
+                        <outlet property="websiteLabel" destination="MYV-nr-8MM" id="nY3-YP-0Wd"/>
                         <outlet property="yearRatingRuntimeLabel" destination="D66-zD-UVV" id="oBm-AD-R0W"/>
                     </connections>
                 </viewController>

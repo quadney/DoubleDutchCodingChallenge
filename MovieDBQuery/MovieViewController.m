@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *movieTitle;
 @property (weak, nonatomic) IBOutlet UILabel *yearRatingRuntimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *directorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
 @property (weak, nonatomic) IBOutlet UITextView *plotSummaryTextView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
 
@@ -43,8 +44,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
     self.yearRatingRuntimeLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", self.movie.year, self.movie.rating, self.movie.runtime];
     self.directorLabel.text = [NSString stringWithFormat:@"Directed by %@", self.movie.director];
     self.plotSummaryTextView.text = self.movie.plotSummary;
-    //TODO website
-    //TODO image
+    self.websiteLabel.text = self.movie.website;
 }
 
 - (void)parseMovieJSONData:(NSDictionary *)json {
@@ -82,9 +82,8 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
                                [self parseMovieJSONData:jsonResponse];
                                
                                [self updateUI];
-                               [self.activitySpinner startAnimating];
+                               
                                [self retrievePosterImage];
-                               [self.activitySpinner stopAnimating];
                            }];
 }
 

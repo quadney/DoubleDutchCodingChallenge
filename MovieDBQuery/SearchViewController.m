@@ -85,8 +85,7 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 
 #pragma mark - Text/Search Field methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"Text field should return");
-    //[self.searchField endEditing:YES];
+    [self.searchField endEditing:YES];
     [self searchForMovies:[self searchRequestString:textField.text]];
     
     return YES;
