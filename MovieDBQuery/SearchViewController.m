@@ -26,12 +26,6 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - querying OMDB
@@ -40,9 +34,6 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
     [NSURLConnection sendAsynchronousRequest:[self generateRequest:urlString]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               // TODO add in an activity spinner
-                               // dismiss the keyboard
-                               
                                NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
                                                                                             options:0
                                                                                               error:nil];
@@ -63,15 +54,23 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 }
 
 - (NSString *)searchRequestString:(NSString *)search {
+    // creates the URL string for searching
     return [NSString stringWithFormat:@"%@s=%@&r=json", omdbRequest, [search stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 #pragma mark - JSON Parsing
 
 - (void)parseSearchJSONData:(NSDictionary *)json {
+    // parses the json data
+    
+    // extract Search json objects into array
     NSArray *rawData = [json objectForKey:@"Search"];
+    
+    // init search results mutable array
     self.searchResults = [[NSMutableArray alloc] init];
     
+    // for each json object in the raw data array,
+    // parse the data into Movie object and put into search results array
     for (int i = 0; i < [rawData count]; i++) {
         Movie *movie = [[Movie alloc] init];
         [movie setTitle:[[rawData objectAtIndex:i] objectForKey:@"Title"]
@@ -85,7 +84,10 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 
 #pragma mark - Text/Search Field methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // dismiss the keyboard
     [self.searchField endEditing:YES];
+    
+    // searches for movies using the returned url string
     [self searchForMovies:[self searchRequestString:textField.text]];
     
     return YES;
@@ -102,6 +104,7 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
                                                            forIndexPath:indexPath];
     
     Movie *movie = [self.searchResults objectAtIndex:indexPath.item];
+    // each cell has a corresponding movie, the cell updates it's UI
     cell.movie = movie;
     
     return cell;
@@ -110,11 +113,15 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     
+    // check to make sure it's the correct segue
     if ([segue.identifier isEqualToString:@"MovieDetail"]) {
-        // Pass the selected object to the new view controller.
+        // Passs the selected object to the new view controller.
+        // get the right path
         NSIndexPath *path = [self.tableView indexPathForCell:(UITableViewCell *)sender];
         
-        MovieViewController *mVC = (MovieViewController *)segue.destinationViewController;
+        // make the new view controller
+        MovieViewController *mVC = (MovieViewController *)[segue destinationViewController];
+        // set the movie to the new view controller
         mVC.movie = [self.searchResults objectAtIndex:path.row];
     }
     

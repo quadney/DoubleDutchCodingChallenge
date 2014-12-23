@@ -11,6 +11,7 @@
 @implementation MovieCell
 
 - (void)setMovie:(Movie *)movie {
+    // override
     _movie = movie;
     [self updateUI];
 }

@@ -25,6 +25,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 
 - (void)viewWillAppear:(BOOL)animated {
     if (self.movie) {
+        // if the movie was set properly, get the rest of the data from the db
         [self searchForMovieWithImdbId:self.movie.imdbID];
         
     }
@@ -32,22 +33,33 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     if (self.movie) {
+        // if the movie was set properly, update the UI with the minimum info that we already have
         self.movieTitle.text = self.movie.title;
         self.yearRatingRuntimeLabel.text = self.movie.year;
     }
 }
 
 - (void)updateUI {
-    self.yearRatingRuntimeLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", self.movie.year, self.movie.rating, self.movie.runtime];
+    // updates the UI
+    
+    // set the year, rating, and runtime, if some fields aren't givin, then don't display them
+    self.yearRatingRuntimeLabel.text = self.movie.year;
+    if (![self.movie.rating isEqualToString:@"N/A"]) {
+        self.yearRatingRuntimeLabel.text = [NSString stringWithFormat:@"%@ | %@", self.yearRatingRuntimeLabel.text, self.movie.rating];
+    }
+    if (![self.movie.runtime isEqualToString:@"N/A"]) {
+        self.yearRatingRuntimeLabel.text = [NSString stringWithFormat:@"%@ | %@", self.yearRatingRuntimeLabel.text, self.movie.runtime];
+    }
+    
     self.directorLabel.text = [NSString stringWithFormat:@"Directed by %@", self.movie.director];
     self.plotSummaryTextView.text = self.movie.plotSummary;
     self.websiteLabel.text = self.movie.website;
 }
 
 - (void)parseMovieJSONData:(NSDictionary *)json {
+    // set the data member fields that the json data fetched
     [self.movie setRating:[json objectForKey:@"Rated"]
              runtime:[json objectForKey:@"Runtime"]
             director:[json objectForKey:@"Director"]
@@ -57,11 +69,11 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 }
 
 - (NSString *)movieRequestString:(NSString *)imbdID {
+    // creates string for the url to request data
     return [NSString stringWithFormat:@"%@i=%@&r=json&tomatoes=true", omdbRequestString, imbdID];
 }
 
-- (NSMutableURLRequest *)generateRequest:(NSString *)urlString
-{
+- (NSMutableURLRequest *)generateRequest:(NSString *)urlString {
     // generate url
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -88,6 +100,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 }
 
 - (void)retrievePosterImage {
+    // gets the image from the URL data
     self.posterImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.movie.posterURL]]];
 }
 
