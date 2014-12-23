@@ -63,7 +63,7 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 }
 
 - (NSString *)searchRequestString:(NSString *)search {
-    return [NSString stringWithFormat:@"%@s=%@&r=json", omdbRequest, search];
+    return [NSString stringWithFormat:@"%@s=%@&r=json", omdbRequest, [search stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 #pragma mark - JSON Parsing
