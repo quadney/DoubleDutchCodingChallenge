@@ -25,7 +25,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 - (void)viewWillAppear:(BOOL)animated {
     if (self.movie) {
         [self searchForMovieWithImdbId:self.movie.imdbID];
-        [self retrievePosterImage];
+        
     }
 }
 
@@ -41,7 +41,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 
 - (void)updateUI {
     self.yearRatingRuntimeLabel.text = [NSString stringWithFormat:@"%@ | %@ | %@", self.movie.year, self.movie.rating, self.movie.runtime];
-    self.directorLabel.text = self.movie.director;
+    self.directorLabel.text = [NSString stringWithFormat:@"Directed by %@", self.movie.director];
     self.plotSummaryTextView.text = self.movie.plotSummary;
     //TODO website
     //TODO image
@@ -82,6 +82,9 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
                                [self parseMovieJSONData:jsonResponse];
                                
                                [self updateUI];
+                               [self.activitySpinner startAnimating];
+                               [self retrievePosterImage];
+                               [self.activitySpinner stopAnimating];
                            }];
 }
 

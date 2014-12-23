@@ -358,7 +358,7 @@
                                     </mask>
                                 </variation>
                             </visualEffectView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="P1H-T9-4cC">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="P1H-T9-4cC">
                                 <rect key="frame" x="290" y="149" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
