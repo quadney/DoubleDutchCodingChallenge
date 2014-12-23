@@ -10,8 +10,11 @@
 
 @interface Movie : NSObject
 
+@property (strong, nonatomic) NSString *imdbID;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSNumber *year;
-@property (strong, nonatomic) NSNumber *rottenTomatoesScore;
+@property (strong, nonatomic) NSString *type;
+
+- (void)setTitle:(NSString *)title year:(NSNumber *)year imdbID:(NSString *)imdbid filmType:(NSString *)type;
 
 @end

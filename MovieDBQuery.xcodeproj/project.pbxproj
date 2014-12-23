@@ -16,6 +16,7 @@
 		C967C1A71A49AC220011AED5 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = C967C1A61A49AC220011AED5 /* Movie.m */; };
 		C967C1AA1A49B0210011AED5 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C967C1A91A49B0210011AED5 /* SearchViewController.m */; };
 		C967C1AD1A49BEF30011AED5 /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C967C1AC1A49BEF30011AED5 /* MovieViewController.m */; };
+		C967C1B31A49C6300011AED5 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C967C1B21A49C6300011AED5 /* MovieCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		C967C1A91A49B0210011AED5 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		C967C1AB1A49BEF30011AED5 /* MovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieViewController.h; sourceTree = "<group>"; };
 		C967C1AC1A49BEF30011AED5 /* MovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieViewController.m; sourceTree = "<group>"; };
+		C967C1B11A49C6300011AED5 /* MovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieCell.h; sourceTree = "<group>"; };
+		C967C1B21A49C6300011AED5 /* MovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,8 @@
 				C967C1A91A49B0210011AED5 /* SearchViewController.m */,
 				C967C1AB1A49BEF30011AED5 /* MovieViewController.h */,
 				C967C1AC1A49BEF30011AED5 /* MovieViewController.m */,
+				C967C1B11A49C6300011AED5 /* MovieCell.h */,
+				C967C1B21A49C6300011AED5 /* MovieCell.m */,
 			);
 			path = MovieDBQuery;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 				C967C1A71A49AC220011AED5 /* Movie.m in Sources */,
 				C967C1AD1A49BEF30011AED5 /* MovieViewController.m in Sources */,
 				C967C17C1A49A1440011AED5 /* AppDelegate.m in Sources */,
+				C967C1B31A49C6300011AED5 /* MovieCell.m in Sources */,
 				C967C1AA1A49B0210011AED5 /* SearchViewController.m in Sources */,
 				C967C1791A49A1440011AED5 /* main.m in Sources */,
 			);
