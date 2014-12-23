@@ -53,6 +53,25 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               // TODO add in an activity spinner
+                               // dismiss the keyboard
+                               
+                               NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
+                                                                                            options:0
+                                                                                              error:nil];
+                               NSLog(@"JSON objects: %i", [jsonResponse count]);
+                               
+                               self.searchResults = [jsonResponse objectForKey:@"Search"];
+                               
+                               NSLog(@"Number search results: %i", [self.searchResults count]);
+                               
+                               [self.tableView reloadData];
+                               
+    }];
 }
 
 - (NSString *)requestString:(NSString *)search {
@@ -63,6 +82,8 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 
 #pragma mark - UITextFieldDelegate methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSLog(@"TExt field should return");
+    //[self.searchField endEditing:YES];
     [self searchForMovie:textField.text];
     
     return YES;
@@ -78,7 +99,9 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
     MovieCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MovieCell"
                                                            forIndexPath:indexPath];
     
-    //[cell updateUIWithTitle:title year:year filmType:type tScore:tomatoScore];
+    NSDictionary *movie = [self.searchResults objectAtIndex:indexPath.item];
+    
+    [cell updateUIWithTitle:[movie objectForKey:@"Title"] year:[movie objectForKey:@"Year"] filmType:[movie objectForKey:@"Type"] tScore:0];
     
     return cell;
 }

@@ -10,12 +10,11 @@
 
 @implementation Movie
 
-- (void)setTitle:(NSString *)title year:(NSNumber *)year imdbID:(NSString *)imdbid filmType:(NSString *)type
+- (void)setTitle:(NSString *)title year:(NSNumber *)year imdbID:(NSString *)imdbid
 {
     self.title = title;
     self.year = year;
     self.imdbID = imdbid;
-    self.type = type;
 }
 
 @end
