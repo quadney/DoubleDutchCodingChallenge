@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *movieTitle;
 @property (weak, nonatomic) IBOutlet UILabel *yearRatingRuntimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *directorLabel;
-@property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
+@property (weak, nonatomic) IBOutlet UITextView *websiteLabel;
 @property (weak, nonatomic) IBOutlet UITextView *plotSummaryTextView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activitySpinner;
 
@@ -57,7 +57,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 }
 
 - (NSString *)movieRequestString:(NSString *)imbdID {
-    return [NSString stringWithFormat:@"%@i=%@&r=json", omdbRequestString, imbdID];
+    return [NSString stringWithFormat:@"%@i=%@&r=json&tomatoes=true", omdbRequestString, imbdID];
 }
 
 - (NSMutableURLRequest *)generateRequest:(NSString *)urlString
