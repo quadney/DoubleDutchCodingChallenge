@@ -34,11 +34,24 @@ const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
     [NSURLConnection sendAsynchronousRequest:[self generateRequest:urlString]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
-                                                                                            options:0
-                                                                                              error:nil];
-                               [self parseSearchJSONData:jsonResponse];
-                               [self.tableView reloadData];
+                               if(connectionError){
+                                   NSLog(@"There was an error \n%@", connectionError);
+                                   // ideally let the user know that maybe their internet doesnt work
+                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                   message:[connectionError localizedDescription]
+                                                                                  delegate:self
+                                                                         cancelButtonTitle:@"Okay"
+                                                                         otherButtonTitles: nil];
+                                   [alert show];
+                               }
+                               else {
+                                   NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                options:0
+                                                                                                  error:nil];
+                                   [self parseSearchJSONData:jsonResponse];
+                                   [self.tableView reloadData];
+                               }
+                               
     }];
 }
 

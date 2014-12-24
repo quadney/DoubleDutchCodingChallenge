@@ -24,38 +24,66 @@
 const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 
 - (void)viewWillAppear:(BOOL)animated {
-    if (self.movie) {
-        // if the movie was set properly, get the rest of the data from the db
-        [self searchForMovieWithImdbId:self.movie.imdbID];
-        
-    }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+    // hide all the potentially null text fields
+    [self setEverythingHidden];
+    
     
     if (self.movie) {
-        // if the movie was set properly, update the UI with the minimum info that we already have
+        // if the movie was set properly, get the rest of the data from the db
         self.movieTitle.text = self.movie.title;
         self.yearRatingRuntimeLabel.text = self.movie.year;
+        
+        [self.activitySpinner startAnimating];
+        [self searchForMovieWithImdbId:self.movie.imdbID];
+        
     }
 }
 
 - (void)updateUI {
     // updates the UI
     
-    // set the year, rating, and runtime, if some fields aren't givin, then don't display them
-    self.yearRatingRuntimeLabel.text = self.movie.year;
-    if (![self.movie.rating isEqualToString:@"N/A"]) {
-        self.yearRatingRuntimeLabel.text = [NSString stringWithFormat:@"%@ | %@", self.yearRatingRuntimeLabel.text, self.movie.rating];
-    }
-    if (![self.movie.runtime isEqualToString:@"N/A"]) {
-        self.yearRatingRuntimeLabel.text = [NSString stringWithFormat:@"%@ | %@", self.yearRatingRuntimeLabel.text, self.movie.runtime];
-    }
+    // if some fields aren't givin, then don't display them
+    [self checkIfValidUILabel:self.yearRatingRuntimeLabel
+                     ofString:self.movie.rating
+             stringWithFormat:[NSString stringWithFormat:@"%@ | %@", self.yearRatingRuntimeLabel.text, self.movie.rating]];
     
-    self.directorLabel.text = [NSString stringWithFormat:@"Directed by %@", self.movie.director];
-    self.plotSummaryTextView.text = self.movie.plotSummary;
-    self.websiteLabel.text = self.movie.website;
+    [self checkIfValidUILabel:self.yearRatingRuntimeLabel
+                     ofString:self.movie.runtime
+             stringWithFormat:[NSString stringWithFormat:@"%@ | %@", self.yearRatingRuntimeLabel.text, self.movie.runtime]];
+    
+    [self checkIfValidUILabel:self.directorLabel
+                     ofString:self.movie.director
+             stringWithFormat:[NSString stringWithFormat:@"Directed by %@", self.movie.director]];
+    
+    [self checkIfValidTextView:self.websiteLabel
+                      ofString:self.movie.website
+              stringWithFormat:self.movie.website];
+    
+    [self checkIfValidTextView:self.plotSummaryTextView
+                      ofString:self.movie.plotSummary
+              stringWithFormat:self.movie.plotSummary];
+}
+
+- (void)setEverythingHidden {
+    [self.directorLabel setHidden:YES];
+    [self.websiteLabel setHidden:YES];
+    [self.plotSummaryTextView setHidden:YES];
+}
+
+- (void)checkIfValidUILabel:(UILabel *)viewObject ofString:(NSString *)string stringWithFormat:(NSString *)displayString {
+    // checks if the data in the movie object is "null" (N/A) if it is NOT, then display it and unhide the object
+    if (![string isEqualToString:@"N/A"]) {
+        viewObject.text = displayString;
+        [viewObject setHidden:NO];
+    }
+}
+
+- (void)checkIfValidTextView:(UITextView *)viewObject ofString:(NSString *)string stringWithFormat:(NSString *)displayString {
+    // because UITextView and UILabel are not of the same parent types #thanksApple
+    if (![string isEqualToString:@"N/A"]) {
+        viewObject.text = displayString;
+        [viewObject setHidden:NO];
+    }
 }
 
 - (void)parseMovieJSONData:(NSDictionary *)json {
@@ -96,6 +124,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
                                [self updateUI];
                                
                                [self retrievePosterImage];
+                               [self.activitySpinner stopAnimating];
                            }];
 }
 

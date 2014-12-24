@@ -44,7 +44,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yjm-yE-ml8" id="J2X-BE-Ijt">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title (year)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYy-es-KFN">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title (year)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="kYy-es-KFN">
                                                     <rect key="frame" x="8" y="9" width="584" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="U0U-Qh-sLw"/>
@@ -167,7 +167,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ev-C2-cal">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="4ev-C2-cal">
                                             <rect key="frame" x="8" y="0.0" width="584" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="48" id="UvR-7a-M4M"/>
@@ -200,7 +200,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Director(s)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AoK-Ml-eMe">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Director(s)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="AoK-Ml-eMe">
                                             <rect key="frame" x="8" y="71" width="584" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="9uB-9M-aoO"/>
@@ -219,6 +219,7 @@
                                             <color key="backgroundColor" red="0.26649790499999998" green="0.26649790499999998" blue="0.26649790499999998" alpha="0.5" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="320" id="BP8-WN-NLJ"/>
+                                                <constraint firstAttribute="height" constant="74" id="wN2-hM-FcC"/>
                                             </constraints>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -332,6 +333,7 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="0Vg-O3-3fV"/>
+                                        <exclude reference="Nc1-iZ-tCS"/>
                                         <exclude reference="fgg-K2-hMP"/>
                                     </mask>
                                 </variation>
