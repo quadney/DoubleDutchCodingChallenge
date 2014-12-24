@@ -34,7 +34,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="A4P-cZ-Qyb">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="A4P-cZ-Qyb">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -44,7 +44,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yjm-yE-ml8" id="J2X-BE-Ijt">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title (year)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="kYy-es-KFN">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title (year)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="kYy-es-KFN">
                                                     <rect key="frame" x="8" y="9" width="584" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="U0U-Qh-sLw"/>
@@ -62,13 +62,14 @@
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type (movie, episode)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOu-PZ-gGp">
-                                                    <rect key="frame" x="8" y="52" width="584" height="15"/>
+                                                    <rect key="frame" x="8" y="52" width="584" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="kOu-PZ-gGp" secondAttribute="bottom" constant="12" id="3nE-FF-qez"/>
                                                 <constraint firstItem="kYy-es-KFN" firstAttribute="leading" secondItem="J2X-BE-Ijt" secondAttribute="leadingMargin" id="4fl-JH-Ybo"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="kOu-PZ-gGp" secondAttribute="bottom" constant="18" id="70Z-l2-j2L"/>
                                                 <constraint firstItem="kOu-PZ-gGp" firstAttribute="top" secondItem="kYy-es-KFN" secondAttribute="bottom" constant="-3" id="8qr-VE-fIR"/>
@@ -105,6 +106,7 @@
                                                     <exclude reference="OVO-Kk-7RS"/>
                                                     <exclude reference="bWO-JP-53L"/>
                                                     <exclude reference="elv-oZ-dG7"/>
+                                                    <exclude reference="gK4-JA-6AO"/>
                                                     <exclude reference="xuJ-9h-ZH4"/>
                                                     <exclude reference="zhw-qv-Y0R"/>
                                                 </mask>
@@ -124,6 +126,13 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="A4P-cZ-Qyb" firstAttribute="top" secondItem="d0N-ge-Dlw" secondAttribute="topMargin" id="Jq7-WI-JCN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="A4P-cZ-Qyb" secondAttribute="trailing" constant="-16" id="NgU-iu-gVB"/>
+                            <constraint firstAttribute="centerX" secondItem="A4P-cZ-Qyb" secondAttribute="centerX" id="b7K-Lz-yRH"/>
+                            <constraint firstItem="hgo-Qg-iyv" firstAttribute="top" secondItem="A4P-cZ-Qyb" secondAttribute="bottom" id="eCX-Cu-sjl"/>
+                            <constraint firstItem="A4P-cZ-Qyb" firstAttribute="leading" secondItem="d0N-ge-Dlw" secondAttribute="leadingMargin" constant="-16" id="wHg-kM-YwG"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cjW-tp-ibK">
                         <nil key="title"/>
@@ -144,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Hn-FW-6ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="678" y="278"/>
+            <point key="canvasLocation" x="678" y="277"/>
         </scene>
         <!--Movie View Controller-->
         <scene sceneID="6u5-3G-Zhs">

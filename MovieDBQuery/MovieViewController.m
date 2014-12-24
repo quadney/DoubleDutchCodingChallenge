@@ -27,6 +27,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
     // hide all the potentially null text fields
     [self setEverythingHidden];
     
+    [self.navigationController.navigationBar setHidden:YES];
     
     if (self.movie) {
         // if the movie was set properly, get the rest of the data from the db
