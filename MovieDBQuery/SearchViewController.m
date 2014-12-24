@@ -24,10 +24,6 @@
 const NSString *movieReuseIdentifier = @"MovieCell";
 const NSString *omdbRequest = @"http://www.omdbapi.com/?v=1&";
 
-- (void)viewWillAppear:(BOOL)animated {
-    //[self.navigationController.navigationBar setHidden:NO];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

@@ -27,8 +27,6 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
     // hide all the potentially null text fields
     [self setEverythingHidden];
     
-    //[self.navigationController.navigationBar setHidden:YES];
-    
     if (self.movie) {
         // if the movie was set properly, get the rest of the data from the db
         self.movieTitle.text = self.movie.title;
@@ -152,6 +150,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
 }
 
 - (void)gestureSwipeRecognizer:(id)sender {
+    // recognizes when the gesture is down and dismisses the view controller back to the table view
     if ([(UISwipeGestureRecognizer *)sender direction] == UISwipeGestureRecognizerDirectionDown) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
