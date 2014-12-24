@@ -115,7 +115,7 @@
                                         <connections>
                                             <outlet property="filmType" destination="kOu-PZ-gGp" id="Pub-b8-wwd"/>
                                             <outlet property="movieTitle" destination="kYy-es-KFN" id="uhl-dk-6y4"/>
-                                            <segue destination="5JG-SZ-FcN" kind="show" identifier="MovieDetail" id="t92-cN-d8D"/>
+                                            <segue destination="5JG-SZ-FcN" kind="presentation" identifier="MovieDetail" id="t92-cN-d8D"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -169,6 +169,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ABb-Rc-ZIk">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xH-Gn-Bq0">
                                 <rect key="frame" x="0.0" y="400" width="600" height="200"/>

@@ -430,6 +430,7 @@
 				C967C1981A49A1440011AED5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C967C1991A49A1440011AED5 /* Build configuration list for PBXNativeTarget "MovieDBQueryTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +439,7 @@
 				C967C19B1A49A1440011AED5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

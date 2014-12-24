@@ -27,7 +27,7 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
     // hide all the potentially null text fields
     [self setEverythingHidden];
     
-    [self.navigationController.navigationBar setHidden:YES];
+    //[self.navigationController.navigationBar setHidden:YES];
     
     if (self.movie) {
         // if the movie was set properly, get the rest of the data from the db
@@ -38,6 +38,13 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
         [self searchForMovieWithImdbId:self.movie.imdbID];
         
     }
+}
+
+- (void)viewDidLoad {
+    UISwipeGestureRecognizer *swipeRecog = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(gestureSwipeRecognizer:)];
+    [swipeRecog setDirection:UISwipeGestureRecognizerDirectionDown];
+    
+    [self.view addGestureRecognizer:swipeRecog];
 }
 
 - (void)updateUI {
@@ -117,15 +124,25 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
     [NSURLConnection sendAsynchronousRequest:[self generateRequest:[self movieRequestString:imbdid]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
-                                                                                            options:0
-                                                                                              error:nil];
-                               [self parseMovieJSONData:jsonResponse];
-                               
-                               [self updateUI];
-                               
-                               [self retrievePosterImage];
-                               [self.activitySpinner stopAnimating];
+                               if(connectionError){
+                                   NSLog(@"There was an error \n%@", connectionError);
+                                   // ideally let the user know that maybe their internet doesnt work
+                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                   message:[connectionError localizedDescription]
+                                                                                  delegate:self
+                                                                         cancelButtonTitle:@"Okay"
+                                                                         otherButtonTitles: nil];
+                                   [alert show];
+                               }
+                               else {
+                                   NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                options:0
+                                                                                                  error:nil];
+                                   [self parseMovieJSONData:jsonResponse];
+                                   [self updateUI];
+                                   [self retrievePosterImage];
+                                   [self.activitySpinner stopAnimating];
+                               }
                            }];
 }
 
@@ -134,4 +151,9 @@ const NSString *omdbRequestString = @"http://www.omdbapi.com/?v=1&";
     self.posterImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.movie.posterURL]]];
 }
 
+- (void)gestureSwipeRecognizer:(id)sender {
+    if ([(UISwipeGestureRecognizer *)sender direction] == UISwipeGestureRecognizerDirectionDown) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 @end
